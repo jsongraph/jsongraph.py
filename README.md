@@ -17,6 +17,8 @@ The default json schema file is the Github Master branch JSON Graph Specificatio
 Example usage:
 
     import jsongraph
+    import urllib
+    import json
 
     '''Test and usage example'''
     single_graph_link = 'https://raw.githubusercontent.com/jsongraph/json-graph-specification/master/examples/usual_suspects.json'
