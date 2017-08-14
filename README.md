@@ -17,6 +17,8 @@ The default json schema file is the Github Master branch JSON Graph Specificatio
 Example usage:
 
     import jsongraph
+    import urllib
+    import json
 
     '''Test and usage example'''
     single_graph_link = 'https://raw.githubusercontent.com/jsongraph/json-graph-specification/master/examples/usual_suspects.json'
@@ -32,16 +34,16 @@ Example usage:
 
     # Uses Github Master branch JSON Graph Specification file by default
     print "Does JSON Graph Schema validate?"
-    validate_schema(schema='', verbose=True)
+    jsongraph.validate_schema(schema='', verbose=True)
 
     print "\nDoes Single Graph example validate?"
-    validate_jsongraph(sg, schema='', verbose=True)
+    jsongraph.validate_jsongraph(sg, schema='', verbose=True)
 
     print "\nShow Label of Single Graph"
-    graphs = load_graphs(sg, validate=False, schema='', verbose=False)
+    graphs = jsongraph.load_graphs(sg, validate=False, schema='', verbose=False)
     print "    Label: ", next(graphs)['label']
 
     print "\nShow Label's of Multiple Graphs"
-    graphs = load_graphs(mg, validate=False, schema='', verbose=False)
+    graphs = jsongraph.load_graphs(mg, validate=False, schema='', verbose=False)
     for graph in graphs:
         print "    Label: ", graph['label']
