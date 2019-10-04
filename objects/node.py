@@ -38,23 +38,24 @@ class Node:
     def set_label(self, label):
         if label == None:
             self._label = None
-            return
-        if isinstance(label, str):
-            self._label = label
         else:
-            try:
-                stringLabel = str(label)
-                self._label = stringLabel
-            except Exception as excecption:
-                raise TypeError("Type of label in Node object needs to be a string (or string castable): " + str(exception))
+            if isinstance(label, str):
+                self._label = label
+            else:
+                try:
+                    stringLabel = str(label)
+                    self._label = stringLabel
+                except Exception as excecption:
+                    raise TypeError("Type of label in Node object needs to be a string (or string castable): " + str(exception))
 
     def set_metadata(self, metadata):
         if metadata == None:
             self._metadata = None
-        if isinstance(metadata, dict) and self._isJsonSerializable(metadata):
-            self._metadata = metadata
         else:
-            raise TypeError("metadata in Node object needs to be json serializable")
+            if isinstance(metadata, dict) and self._isJsonSerializable(metadata):
+                self._metadata = metadata
+            else:
+                raise TypeError("metadata in Node object needs to be json serializable")
 
     def get_id(self):
         return self._id
@@ -71,6 +72,7 @@ class Node:
             json[Node.LABEL] = self._label
         if self._metadata != None:
             json[Node.METADATA] = self._metadata
+        return json
 
 
 class TestNodeClass(unittest.TestCase):
