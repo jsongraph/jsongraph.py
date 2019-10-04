@@ -1,5 +1,5 @@
-from node import Node
-from edge import Edge
+from .node import Node
+from .edge import Edge
 import json
 import unittest
 

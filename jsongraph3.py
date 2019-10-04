@@ -19,6 +19,8 @@ import os.path
 from jsonschema import Draft4Validator
 import sys
 import urllib.request, urllib.parse, urllib.error
+from objects.multigraph import Multigraph
+from objects.graph import Graph
 
 
 def load_json_string(jsonstring):
