@@ -58,7 +58,7 @@ class Graph:
                     edge.set_directed(True)
             self._edges.append(edge)
         else:
-            raise TypeError("Adding edge to graph failed: edge must of type Edge")
+            raise TypeError("Adding edge to graph failed: edge must be of type Edge") #TODO correct in original
     
     def set_nodes(self, nodes):
         for node in nodes:

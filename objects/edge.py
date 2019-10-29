@@ -106,11 +106,11 @@ class Edge:
     def to_JSON(self):
         json = {Edge.SOURCE: self._source, Edge.TARGET: self._target}
         if self._relation != None:
-            json[Node.RELATION] = self._relation
+            json[Edge.RELATION] = self._relation #TODO change in original
         if self._directed != None:
-            json[Node.DIRECTED] = self._directed
+            json[Edge.DIRECTED] = self._directed
         if self._metadata != None:
-            json[Node.METADATA] = self._metadata
+            json[Edge.METADATA] = self._metadata
         return json
 
 class TestEdgeClass(unittest.TestCase):
