@@ -18,7 +18,15 @@ import json
 import os.path
 from jsonschema import Draft4Validator
 import sys
+import ssl
+import io
 import urllib.request, urllib.parse, urllib.error
+from objects.multigraph import Multigraph
+from objects.graph import Graph
+from objects.edge import Edge
+from objects.node import Node #TODO add in original
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 def load_json_string(jsonstring):
@@ -48,7 +56,7 @@ def get_json(jsongraph):
     '''
     if type(jsongraph) is dict:
         return jsongraph
-    elif type(jsongraph) is file:
+    elif isinstance(jsongraph, io.IOBase):
         return json.load(jsongraph)
     elif os.path.isfile(jsongraph):
         with open(jsongraph, 'rb') as f:
