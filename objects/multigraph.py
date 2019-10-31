@@ -63,7 +63,7 @@ class Multigraph:
 
         
     def set_type(self, type):
-         """Method to set the type of the multigraph.
+        """Method to set the type of the multigraph.
 
         Arguments:
             type -- string      the typename of the multigraph to set
@@ -151,25 +151,28 @@ class Multigraph:
         return self._metadata
 
 
-    def to_JOSN(self, asString=False):
+    def to_JSON(self, asString=False):
         """Convert the multigraph to JSON.
 
         Creates a dictionary object of the multigraph comforming the JSON Graph Format.
+
+        Arguments:
+            asString -- bool    if set to True the method returns the JSON as string
 
         Returns: 
             dictionary      the multigraph as dictionary ready to serialize
         """
         result = {}
         if self._label != None:
-            result[Graphs.LABEL] = self._label
+            result[Multigraph.LABEL] = self._label
         if self._type != None:
-            result[Graphs.TYPE] = self._type
+            result[Multigraph.TYPE] = self._type
         if self._metadata != None:
-            result[Graphs.METADATA] = self._metadata
+            result[Multigraph.METADATA] = self._metadata
         graphs = []
         for graph in self._graphs:
             graphs.append(graph.to_JSON())
-        result[Graphs.GRAPHS] = graphs
+        result[Multigraph.GRAPHS] = graphs
         if asString:
             return json.dumps(result)
         else:
@@ -177,7 +180,7 @@ class Multigraph:
 
 
 
-            
+
 
 class TestMultigraphClass(unittest.TestCase):
 

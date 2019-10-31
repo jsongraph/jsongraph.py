@@ -28,6 +28,8 @@ class Graph:
         Returns: 
             Graph     Graph object initialized with the provided arguments.
         """
+        self._directed = None
+        self.set_directed(directed)
         self._nodes = []
         self._edges = []
         self.set_nodes(nodes)
@@ -38,8 +40,6 @@ class Graph:
         self._label = None
         if label != None:
             self.set_label(label)
-        self._directed = None
-        self.set_directed(directed)
         self._metadata = None
         if metadata != None:
             self.set_metadata(metadata)
@@ -234,10 +234,13 @@ class Graph:
         """
         return self._metadata
 
-    def to_JOSN(self, asString=False):
+    def to_JSON(self, asString=False):
         """Convert the graph to JSON.
 
         Creates a dictionary object of the graph comforming the JSON Graph Format.
+
+        Arguments:
+            asString -- bool    if set to True the method returns the JSON as string
 
         Returns: 
             dictionary      the graph as dictionary ready to serialize
