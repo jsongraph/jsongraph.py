@@ -10,6 +10,14 @@ class Multigraph:
     METADATA = 'metadata'
 
     def __init__(self, graphs=[], type=None, label=None, metadata=None):
+        """Constructor of the Multigraph class.
+        
+        Arguments:
+            graphs -- [Graph]       list of Graph objects that are part of the multigraph (default [])
+            type -- string          (optionally) the typename of the multigraph (default None)
+            label -- string         (optionally) the label of the multigraph (default None)
+            metadata -- dictionary  (optionally) a dictionary representing the metadata that belongs to the multigraph (default None)
+        """
         self._graphs = []
         self.set_graphs(graphs)
         self._type = None
@@ -22,6 +30,7 @@ class Multigraph:
         if metadata != None:
             self.set_metadata(metadata)
 
+
     def _isJsonSerializable(self, dictionay):
         try:
             json.dumps(dictionay)
@@ -30,6 +39,11 @@ class Multigraph:
             return False
 
     def add_graph(self, graph):
+        """Method to add a graph to the multigraph.
+
+        Arguments:
+            graph -- Graph      the graph to add
+        """
         if graph == None:
             return
         if isinstance(graph, Graph):
@@ -37,11 +51,23 @@ class Multigraph:
         else:
             raise TypeError("Adding graph to Multigraph failed: graph must of type Graph")
 
+
     def set_graphs(self, graphs):
+        """Method to add a list of graphs.
+        
+        Arguments:
+            graphs -- [Graph]   the list of graphs that need to be added
+        """
         for graph in graphs:
             self.add_graph(graph)
+
         
     def set_type(self, type):
+         """Method to set the type of the multigraph.
+
+        Arguments:
+            type -- string      the typename of the multigraph to set
+        """
         if type == None:
             self._type = None
         else:
@@ -54,7 +80,13 @@ class Multigraph:
                 except Exception as excecption:
                     raise TypeError("Type of type in Multigraph object needs to be a string (or string castable): " + str(exception))
 
+
     def set_label(self, label):
+        """Method to set the label of the multigraph.
+
+        Arguments:
+            label -- string     the labelname of the multigraph to set
+        """
         if label == None:
             self._label = None
         else:
@@ -66,8 +98,14 @@ class Multigraph:
                     self._label = stringLabel
                 except Exception as excecption:
                     raise TypeError("Type of label in Multigraph object needs to be a string (or string castable): " + str(exception))
+
     
     def set_metadata(self, metadata):
+        """Method to set the metadata of the multigraph.
+
+        Arguments:
+            metadata -- dictionary      the metadata to set on the multigraph
+        """
         if metadata == None:
             self._metadata = None
         else:
@@ -76,19 +114,51 @@ class Multigraph:
             else:
                 raise TypeError("metadata in Multigraph object needs to be json serializable")
 
+
     def get_graphs(self):
+        """Method to get a list of all graphs in the multigraph.
+        
+        Returns:
+            [Graph]     list of graphs present in the multigraph
+        """
         return self._graphs
 
+
     def get_type(self):
+        """Method to get the type of the multigraph.
+
+        Returns:
+            string      the typename of the multigraph if set, else None
+        """
         return self._type
+
     
     def get_label(self):
+        """Method to get the label of the multigraph.
+
+        Returns:
+            string      the label of the multigraph if set, else None
+        """
         return self._label
 
+
     def get_metadata(self):
+        """"Get the metadata of the multigraph.
+        
+        Returns: 
+            dictionary      the metadata of the multigraph if set, else None
+        """
         return self._metadata
 
+
     def to_JOSN(self, asString=False):
+        """Convert the multigraph to JSON.
+
+        Creates a dictionary object of the multigraph comforming the JSON Graph Format.
+
+        Returns: 
+            dictionary      the multigraph as dictionary ready to serialize
+        """
         result = {}
         if self._label != None:
             result[Graphs.LABEL] = self._label
@@ -104,6 +174,10 @@ class Multigraph:
             return json.dumps(result)
         else:
             return result
+
+
+
+            
 
 class TestMultigraphClass(unittest.TestCase):
 

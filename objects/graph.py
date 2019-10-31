@@ -4,6 +4,7 @@ import json
 import unittest
 
 class Graph:
+    """Graph class representing a single graph in the JSON Graph Format."""
 
     GRAPH = 'graph'
     NODES = 'nodes'
@@ -14,6 +15,19 @@ class Graph:
     METADATA = 'metadata'
 
     def __init__(self, nodes=[], edges=[], type=None, label=None, directed=True, metadata=None):
+        """Constructor of the Graph class.
+
+        Arguments:
+            nodes -- [Nodes]        list of nodes that are a part of the graph
+            edges -- [Edges]        list of edges that are a part of the graph
+            type -- string          (optionally) the typename of the graph (default None)
+            lable -- string         (optionally) the label of the graph (default None)
+            directed -- bool        (optionally) boolean indicating whether the graph is directed or not (default True)
+            metadata -- dictionary  (optionally) a dictionary representing the metadata that belongs to the graph (default None)
+        
+        Returns: 
+            Graph     Graph object initialized with the provided arguments.
+        """
         self._nodes = []
         self._edges = []
         self.set_nodes(nodes)
@@ -29,6 +43,8 @@ class Graph:
         self._metadata = None
         if metadata != None:
             self.set_metadata(metadata)
+
+
         
     def _isJsonSerializable(self, dictionay):
         try:
@@ -38,6 +54,11 @@ class Graph:
             return False
 
     def add_node(self, node):
+        """Method to add one node to the graph.
+
+        Arguments:
+            node -- Node    the node to add
+        """
         if node == None:
             return
         if isinstance(node, Node):
@@ -45,7 +66,14 @@ class Graph:
         else:
             raise TypeError("Adding node to graph failed: node must of type Node")
 
+
     def add_edge(self, edge, force_direction=False):#TODO check existence of node ids when adding
+        """Method to add one edge to the graph.
+
+        Arguments:
+            edge -- Edge                the edge to add
+            force_direction -- bool     (optionally) boolean indicating whether the direction-value (of the graph) needs to be enforced on the edge (default False)
+        """
         if edge == None:
             return
         if isinstance(edge, Edge):
@@ -58,17 +86,36 @@ class Graph:
                     edge.set_directed(True)
             self._edges.append(edge)
         else:
-            raise TypeError("Adding edge to graph failed: edge must be of type Edge") #TODO correct in original
+            raise TypeError("Adding edge to graph failed: edge must be of type Edge")
+
     
     def set_nodes(self, nodes):
+        """Method to add a list of nodes to the graph.
+
+        Arguments:
+            nodes -- [Node]     array of nodes that need to be added
+        """
         for node in nodes:
             self.add_node(node)
 
+
     def set_edges(self, edges, force_direction=False):
+        """Method to add a list of edges to the graph.
+
+        Arguments:
+            edges -- [edge]             array of nodes that need to be added
+            force_direction -- bool     (optionally) boolean indicating whether the direction-value (of the graph) needs to be enforced on the edge (default False)
+        """
         for edge in edges:
             self.add_edge(edge, force_direction)
 
+
     def set_type(self, type):
+        """Method to set the type of the graph.
+
+        Arguments:
+            type -- string      the typename of the graph to set
+        """
         if type == None:
             self._type = None
         else:
@@ -81,7 +128,13 @@ class Graph:
                 except Exception as excecption:
                     raise TypeError("Type of type in Graph object needs to be a string (or string castable): " + str(exception))
 
+
     def set_label(self, label):
+        """Method to set the label of the graph.
+
+        Arguments:
+            label -- string     the labelname of the graph to set
+        """
         if label == None:
             self._label = None
         else:
@@ -94,7 +147,13 @@ class Graph:
                 except Exception as excecption:
                     raise TypeError("Type of label in Graph object needs to be a string (or string castable): " + str(exception))
 
+
     def set_directed(self, directed=True):
+        """Method to make the graph (un)directed.
+
+        Arguments:
+            directed -- bool    (optionally) boolean to indicate whether the graph is directed (default True)
+        """
         if directed == None:
             self._directed = None
         else:
@@ -107,7 +166,13 @@ class Graph:
                 except Exception as excecption:
                     raise TypeError("Type of directed in Graph needs to be a boolean (or boolean castable): " + str(exception))
 
+
     def set_metadata(self, metadata):
+        """Method to set the metadata of the graph.
+
+        Arguments:
+            metadata -- dictionary      the metadata to set on the graph
+        """
         if metadata == None:
             self._metadata = None
         else:
@@ -116,25 +181,67 @@ class Graph:
             else:
                 raise TypeError("metadata in Graph object needs to be json serializable")
 
+
     def get_nodes(self):
+        """Method to get a list of the nodes in the graph.
+
+        Returns:
+            [Node]      the list of all nodes in the graph
+        """
         return self._nodes
 
+
     def get_edges(self):
+        """Method to get a list of the edges in the graph.
+
+        Returns:
+            [Edge]      the list of all edges in the graph
+        """
         return self._edges
 
+
     def get_type(self):
+        """Method to get the type of the graph.
+
+        Returns:
+            string      the typename of the graph if set, else None
+        """
         return self._type
+
     
     def get_label(self):
+        """Method to get the label of the graph.
+
+        Returns:
+            string      the label of the graph if set, else None
+        """
         return self._label
 
     def is_directed(self):
+        """Method to see whehter the graph is directed or not.
+
+        Returns:
+            bool        True if the graph directed, else False
+        """
         return self._directed
 
+
     def get_metadata(self):
+        """"Get the metadata of the graph.
+        
+        Returns: 
+            dictionary      the metadata of the graph if set, else None
+        """
         return self._metadata
 
     def to_JOSN(self, asString=False):
+        """Convert the graph to JSON.
+
+        Creates a dictionary object of the graph comforming the JSON Graph Format.
+
+        Returns: 
+            dictionary      the graph as dictionary ready to serialize
+        """
         graph = {}
         if self._label != None:
             graph[Graph.LABEL] = self._label
@@ -158,6 +265,9 @@ class Graph:
             return json.dumps({Graph.GRAPH: graph})
         else:
             return {Graph.GRAPH: graph}
+
+
+
 
 
 class TestGraphClass(unittest.TestCase):

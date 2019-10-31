@@ -168,7 +168,7 @@ class Edge:
 
     
     def get_metadata(self):
-         """Get the metadata of the edge.
+        """Get the metadata of the edge.
         
         Returns: 
             dictionary      the metadata of the edge if set, else None
